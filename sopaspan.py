@@ -1,5 +1,4 @@
 import sopa
-import spatialdata
 import argparse
 import spatialdata as sd
 import re
@@ -8,10 +7,16 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import muspan as ms
 import numpy as np
-import matplotlib.pyplot as plt
 import json
 import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scanpy as sc
 from shapely.geometry import mapping
+
+plt.rcParams['font.size'] = 200
+plt.rcParams['axes.linewidth'] = 15
+fig_kwargs = dict(figsize=(200, 200))
 
 
 # Strip the _ch_N suffix from column names
@@ -58,7 +63,7 @@ def get_colors_for_communities(n_communities):
 
 
 def run_muspan(spatial_data, cell_boundaries='stardist_boundaries', index_name='cell_id', output_dir='.',
-               cell_colour='table: kmeans_cluster', comm_detect_res=0.3):
+               cell_colour='table: kmeans_cluster', comm_detect_res=0.01):
     # Set the index name (as we learned earlier)
     spatial_data.shapes[cell_boundaries].index.name = index_name
 
@@ -72,8 +77,9 @@ def run_muspan(spatial_data, cell_boundaries='stardist_boundaries', index_name='
     muspan_domain = ms.io.spatialdata_to_domain(sdata_clean, import_shapes_as_points=True)
 
     print("\nVisualising cells...")
-    ms.visualise.visualise(muspan_domain, color_by=cell_colour, marker_size=0.5, figure_kwargs=dict(figsize=(100, 100)))
-    plt.savefig(os.path.join(output_dir, 'cells.pdf'))
+    ms.visualise.visualise(muspan_domain, color_by=cell_colour, marker_size=3.0, figure_kwargs=fig_kwargs)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'cells.png'))
 
     print("\nGenerating Delauney network...")
     ms.networks.generate_network(
@@ -87,11 +93,12 @@ def run_muspan(spatial_data, cell_boundaries='stardist_boundaries', index_name='
     ms.visualise.visualise_network(
         muspan_domain,
         network_name='Centroid Delaunay',
-        edge_width=0.5,
-        visualise_kwargs=dict(color_by=cell_colour, marker_size=0.05),
-        figure_kwargs=dict(figsize=(100, 100))
+        edge_width=0.25,
+        visualise_kwargs=dict(color_by=cell_colour, marker_size=1.0),
+        figure_kwargs=fig_kwargs
     )
-    plt.savefig(os.path.join(output_dir, 'delaunay_network.pdf'))
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'delaunay_network.png'))
 
     print(f'\nDetecting communities at res {comm_detect_res}...')
     communities_res_1 = ms.networks.community_detection(
@@ -104,18 +111,9 @@ def run_muspan(spatial_data, cell_boundaries='stardist_boundaries', index_name='
     )
 
     print(f'\nVisualising communities at res {comm_detect_res}...')
-    ms.visualise.visualise_network(
-        muspan_domain,
-        network_name='Centroid Delaunay',
-        edge_width=0.5,
-        visualise_kwargs=dict(
-            color_by='Communities',
-            marker_size=0.05,
-            scatter_kwargs=dict(linewidth=0.1, edgecolor='black')
-        ),
-        figure_kwargs=dict(figsize=(100, 100))
-    )
-    plt.savefig(os.path.join(output_dir, 'communities_network.pdf'))
+    ms.visualise.visualise(muspan_domain, color_by='Communities', marker_size=5.0, figure_kwargs=fig_kwargs)
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'communities_network.png'))
 
     return muspan_domain
 
@@ -305,5 +303,25 @@ if __name__ == '__main__':
 
     example_domain = run_muspan(sdata)
 
-    export_to_qupath(example_domain, communities='Communities', clusters='table: kmeans_cluster',
-                     output_path=os.path.join(args.plot_dir, 'qupath_communities_export.geojson'))
+    adata = sdata.tables['table']
+    idx = np.random.choice(adata.n_obs, size=30000, replace=False)
+    adata_subset = adata[idx].copy()
+    sopa.spatial.spatial_neighbors(adata, radius=(0, 1000))
+    cell_type_to_cell_type = sopa.spatial.mean_distance(adata, "kmeans_cluster", "kmeans_cluster")
+    plt.rcParams['font.size'] = 10
+    plt.rcParams['axes.linewidth'] = 2
+    plt.figure(figsize=(10, 10))
+    heatmap_kwargs = {"cmap": sns.cm.rocket_r, "cbar_kws": {"label": "Mean hop distance"}}
+    sns.heatmap(cell_type_to_cell_type, **heatmap_kwargs)
+    plt.tight_layout()
+    plt.savefig(os.path.join(args.plot_dir, 'cell_type_to_cell_type.png'))
+
+    sc.pp.normalize_total(adata_subset)
+    sc.pp.log1p(adata_subset)
+    sc.pp.neighbors(adata_subset)
+    sc.tl.umap(adata_subset)
+    sc.tl.leiden(adata_subset)
+    plt.figure(figsize=(10, 10))
+    sc.pl.umap(adata_subset, color="kmeans_cluster")
+    sc.pl.umap(adata_subset, color="leiden")
+
