@@ -204,19 +204,20 @@ def export_to_qupath(domain, communities, clusters, output_path, cell_id='cell_i
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input_file', help='Path to input image')
+    parser.add_argument('-i', '--input_file', help='Path to input image',
+                        default='/nemo/stp/lm/working/barryd/hpc/projects/stps/ehp/2026.01/comet_lunaphore/data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.tiff')
+    parser.add_argument('-o', '--output_file', help='Path to output Zarr',
+                        default='/nemo/stp/lm/working/barryd/hpc/projects/stps/ehp/2026.01/comet_lunaphore/data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.zarr')
     args = parser.parse_args()
 
     imagepath = args.input_file
-    # imagepath = '../data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.tiff'
+    zarr_path = args.output_file
 
-    print("Opening image")
+    print(f'Opening image from {imagepath}')
 
     dataset = sopa.io.ome_tif(imagepath, as_image=False)
 
-    print("Saving as Zarr...")
-
-    zarr_path = '../data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.zarr'
+    print(f'Saving Zarr to {zarr_path}')
 
     dataset.write(zarr_path, overwrite=True)
 
