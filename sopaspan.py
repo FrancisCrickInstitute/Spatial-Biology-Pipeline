@@ -208,6 +208,7 @@ if __name__ == '__main__':
                         default='/nemo/stp/lm/working/barryd/hpc/projects/stps/ehp/2026.01/comet_lunaphore/data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.tiff')
     parser.add_argument('-o', '--output_file', help='Path to output Zarr',
                         default='/nemo/stp/lm/working/barryd/hpc/projects/stps/ehp/2026.01/comet_lunaphore/data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.zarr')
+    parser.add_argument('-p', '--plot_dir', help='Output directory for data plots', default='.')
     args = parser.parse_args()
 
     imagepath = args.input_file
@@ -265,7 +266,7 @@ if __name__ == '__main__':
     np.random.seed(42)
 
     # Load the data
-    path_to_spatialData_file = '/nemo/stp/lm/working/barryd/hpc/projects/stps/ehp/2026.01/comet_lunaphore/data/20251017_132551_2_p6Bnyk_EHP893_25_SPYREplus4_EHP893_25_Thymus_SPYREplus4_test1.zarr'
+    path_to_spatialData_file = zarr_path
     sdata = sd.read_zarr(path_to_spatialData_file)
 
     # Get the boundaries and measurements
@@ -305,4 +306,4 @@ if __name__ == '__main__':
     example_domain = run_muspan(sdata)
 
     export_to_qupath(example_domain, communities='Communities', clusters='table: kmeans_cluster',
-                     output_path='/nemo/stp/lm/working/barryd/hpc/projects/stps/lm/Test/muspan/qupath_communities_export.geojson')
+                     output_path=os.path.join(args.plot_dir, 'qupath_communities_export.geojson'))
