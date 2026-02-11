@@ -18,7 +18,7 @@ SopaSpan is a Python library for the analysis of spatial biology/omics data. It 
 
 We recommend using conda as it's relatively straightforward and makes the management of different Python environments simple. You can install conda from [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation) (miniconda will suffice).
 
-## Step 2: Set Up Environment
+## Step 2: Create Environment and Install Pip Dependencies
 
 ### Step 2.1: Create an environment
 
@@ -35,11 +35,7 @@ Proceed ([y]/n)?
 ```
 Hit Enter and all necessary packages will be downloaded and installed - this may take some time.
 
-### Step 2.2: Install pip dependencies
-
-The following dependencies are required and must be installed in the correct order:
-
-#### 2.2.1: Tensorflow
+### 2.2: Install Tensorflow
 
 SopaSpan depends on [Stardist](https://github.com/stardist/stardist) to segment cell nuclei, which in turn depends on Tensorflow.
 
@@ -55,7 +51,7 @@ On any other operating system:
 python -m pip install tensorflow
 ```
 
-#### 2.2.2: Sopa
+### 2.3: Install Sopa
 
 Install [Sopa](https://gustaveroussy.github.io/sopa/) with support for stardist and wsi (whole slide imaging) using the following:
 
@@ -63,7 +59,7 @@ Install [Sopa](https://gustaveroussy.github.io/sopa/) with support for stardist 
 python -m pip install 'sopa[stardist,wsi]'
 ```
 
-#### 2.2.3: MuSpan
+### 2.4: Install MuSpan
 
 Unfortunately, at this time, MuSpan requires a username and password to install. You can obtain these by completing the form [here](https://www.muspan.co.uk/get-the-code). Once you receive a response by email, MuSpan can be installed as follows:
 
@@ -73,7 +69,7 @@ python -m pip install https://docs.muspan.co.uk/code/latest.zip
 
 You will then be prompted to enter the login credentials you received by email and the installation should proceed.
 
-#### 2.2.4: Get the code for this repository
+## Step 3: Get the code for this repository
 
 To get the necessary python code to run SopaSpan, the recommended approach is to [clone this repository using Git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Alternatively, you can download a Zip file of the repo by clicking on the green code button above and then clicking "Download Zip":
 
@@ -81,7 +77,7 @@ To get the necessary python code to run SopaSpan, the recommended approach is to
 
 Unzip the contents of the zip file once downloaded - the contents should contain a file called `sopaspan.py`.
 
-## Step 3: All Done!
+## Installation Complete
 
 That's it - your set up is complete. You can deactivate the environment you have created with the following command.
 
@@ -91,6 +87,8 @@ conda deactivate
 
 # Usage
 
+## Basic Usage
+
 To run SopaSpan, use the following:
 
 ```bash
@@ -98,12 +96,15 @@ conda activate spatial-bio
 python <path_to_sopaspan.py> -i <path_to_input_file> -o <path_to_output_zarr> -p <path_to_output_plots_directory>
 ```
 
+## Parameters
+
 Three arguments can be passed, specifying the input and where outputs should be saved:
 * -i: this is the path to the input image. While only TIFF files have been tested, it should be possible to run SopaSpan on most common file formats.
 * -o: before running, the input image will be converted to a [SpatialData object](https://www.nature.com/articles/s41592-024-02212-x), a form of Zarr file. This parameter tells SopaSpan where to save this Zarr file.
 * -p: path to directory where all output plots will be saved
 
-For example:
+## Full Example
+
 ```bash
 python ~/Downloads/SopaSpan/sopaspan.py -i ~/data/sample.tiff -o ~/results/output.zarr -p ~/results/plots/
 ```
