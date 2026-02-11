@@ -11,6 +11,9 @@ SopaSpan is a Python library for the analysis of spatial biology/omics data. It 
 
 # Installation
 
+> [!NOTE]
+> SopaSpan depends on Tensorflow and while Tensorflow will run on all operating systems, support for GPU processing is generally only supported on Linux - see [here](https://www.tensorflow.org/install) for more information.
+
 ## Step 1: Install a Python Distribution
 
 We recommend using conda as it's relatively straightforward and makes the management of different Python environments simple. You can install conda from [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation) (miniconda will suffice).
@@ -39,9 +42,6 @@ The following dependencies are required and must be installed in the correct ord
 #### 2.2.1: Tensorflow
 
 SopaSpan depends on [Stardist](https://github.com/stardist/stardist) to segment cell nuclei, which in turn depends on Tensorflow.
-
-> [!NOTE]
-> While Tensorflow will run on all operating systems, support for GPU processing is generally only supported on Linux - see [here](https://www.tensorflow.org/install) for more information.
 
 On Linux, install tensorflow as follows:
 
