@@ -91,7 +91,14 @@ conda deactivate
 
 # Usage
 
+To run SopaSpan, use the following:
+
 ```bash
 conda activate spatial-bio
 python <path_to_sopaspan.py> -i <path_to_input_file> -o <path_to_output_zarr> -p <path_to_output_plots_directory>
 ```
+
+Three arguments can be passed, specifying the input and where outputs should be saved:
+* -i: this is the path to the input image. While only TIFF files have been tested, it should be possible to run SopaSpan on most common file formats.
+* -o: before running, the input image will be converted to a [SpatialData object](https://www.nature.com/articles/s41592-024-02212-x), a form of Zarr file. This parameter tells SopaSpan where to save this Zarr file.
+* -p: path to directory where all output plots will be saved
