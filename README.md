@@ -63,13 +63,23 @@ Install [Sopa](https://gustaveroussy.github.io/sopa/) with support for stardist 
 python -m pip install 'sopa[stardist,wsi]'
 ```
 
-When complete, you can deactivate the environment you have created with the following command.
+#### 2.2.2: MuSpan
 
+Unfortunately, at this time, MuSpan requires a username and password to install. You can obtain these by completing the form [here](https://www.muspan.co.uk/get-the-code). Once you receive a response by email, MuSpan can be installed as follows:
+
+```bash
+python -m pip install https://docs.muspan.co.uk/code/latest.zip
 ```
+
+You will then be prompted to enter the login credentials you received by email and the installation should proceed.
+
+## Step 3: All Done!
+
+That's it - your set up is complete. You can deactivate the environment you have created with the following command.
+
+```bash
 conda deactivate
 ```
-You have successfully set up an environment to run KimmelNet!
-
 
 # Usage
 
