@@ -20,7 +20,7 @@ We recommend using conda as it's relatively straightforward and makes the manage
 
 ## Step 2: Create Environment and Install Pip Dependencies
 
-### Step 2.1: Create an environment
+### 2.1: Create an environment
 
 Once conda is installed, open a terminal (Mac) or Anaconda Prompt (Windows) and run the following series of commands:
 
