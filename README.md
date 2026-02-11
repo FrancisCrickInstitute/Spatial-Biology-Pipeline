@@ -102,3 +102,8 @@ Three arguments can be passed, specifying the input and where outputs should be 
 * -i: this is the path to the input image. While only TIFF files have been tested, it should be possible to run SopaSpan on most common file formats.
 * -o: before running, the input image will be converted to a [SpatialData object](https://www.nature.com/articles/s41592-024-02212-x), a form of Zarr file. This parameter tells SopaSpan where to save this Zarr file.
 * -p: path to directory where all output plots will be saved
+
+For example:
+```bash
+python ~/Downloads/SopaSpan/sopaspan.py -i ~/data/sample.tiff -o ~/results/output.zarr -p ~/results/plots/
+```
