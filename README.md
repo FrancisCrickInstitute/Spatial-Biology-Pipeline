@@ -83,6 +83,9 @@ conda deactivate
 
 # Usage
 
+To run SopaSpan, use the following:
+
 ```bash
+conda activate spatial-bio
 python sopaspan.py -i <path_to_input_file> -o <path_to_output_zarr> -p <path_to_output_plots_directory>
 ```
