@@ -38,7 +38,7 @@ The following dependencies are required and must be installed in the correct ord
 
 #### 2.2.1: Tensorflow
 
-SopaSpan depends on Stardist to segment cell nuclei, which in turn depends on Tensorflow.
+SopaSpan depends on [Stardist](https://github.com/stardist/stardist) to segment cell nuclei, which in turn depends on Tensorflow.
 
 > [!NOTE]
 > While Tensorflow will run on all operating systems, support for GPU processing is generally only supported on Linux - see [here](https://www.tensorflow.org/install) for more information.
@@ -46,13 +46,21 @@ SopaSpan depends on Stardist to segment cell nuclei, which in turn depends on Te
 On Linux, install tensorflow as follows:
 
 ```bash
-pip install tensorflow[and-cuda]
+python -m pip install tensorflow[and-cuda]
 ```
 
 On any other operating system:
 
 ```bash
-pip install tensorflow[and-cuda]
+python -m pip install tensorflow
+```
+
+#### 2.2.2: Sopa
+
+Install [Sopa](https://gustaveroussy.github.io/sopa/) with support for stardist and wsi (whole slide imaging) using the following:
+
+```bash
+python -m pip install 'sopa[stardist,wsi]'
 ```
 
 When complete, you can deactivate the environment you have created with the following command.
