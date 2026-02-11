@@ -79,7 +79,7 @@ To get the necessary python code to run SopaSpan, the recommended approach is to
 
 <img width="472" height="369" alt="image" src="https://github.com/user-attachments/assets/ee52fdf5-1574-4342-aa85-77f623d60709" />
 
-Unzip the contents of the zip file once downloaded - the contents should contain a file called sopaspan.py.
+Unzip the contents of the zip file once downloaded - the contents should contain a file called `sopaspan.py`.
 
 ## Step 3: All Done!
 
