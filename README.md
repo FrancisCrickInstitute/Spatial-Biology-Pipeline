@@ -63,7 +63,7 @@ Install [Sopa](https://gustaveroussy.github.io/sopa/) with support for stardist 
 python -m pip install 'sopa[stardist,wsi]'
 ```
 
-#### 2.2.2: MuSpan
+#### 2.2.3: MuSpan
 
 Unfortunately, at this time, MuSpan requires a username and password to install. You can obtain these by completing the form [here](https://www.muspan.co.uk/get-the-code). Once you receive a response by email, MuSpan can be installed as follows:
 
