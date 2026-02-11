@@ -73,6 +73,14 @@ python -m pip install https://docs.muspan.co.uk/code/latest.zip
 
 You will then be prompted to enter the login credentials you received by email and the installation should proceed.
 
+#### 2.2.4: Get the code for this repository
+
+To get the necessary python code to run SopaSpan, the recommended approach is to [clone this repository using Git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Alternatively, you can download a Zip file of the repo by clicking on the green code button above and then clicking "Download Zip":
+
+<img width="472" height="369" alt="image" src="https://github.com/user-attachments/assets/ee52fdf5-1574-4342-aa85-77f623d60709" />
+
+Unzip the contents of the zip file once downloaded - the contents should contain a file called sopaspan.py.
+
 ## Step 3: All Done!
 
 That's it - your set up is complete. You can deactivate the environment you have created with the following command.
@@ -82,16 +90,6 @@ conda deactivate
 ```
 
 # Usage
-
-## Step 1: Get the code
-
-To get the necessary python code to run SopaSpan, the recommended approach is to [clone this repository using Git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). Alternatively, you can download a Zip file of the repo by clicking on the green code button above and then clicking "Download Zip":
-
-<img width="472" height="369" alt="image" src="https://github.com/user-attachments/assets/ee52fdf5-1574-4342-aa85-77f623d60709" />
-
-Unzip the contents of the zip file once downloaded - the contents should contain a file called sopaspan.py.
-
-## Step 2: Run the script
 
 ```bash
 conda activate spatial-bio
